@@ -17,16 +17,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class TTTableViewController, TTSearchDisplayController;
+@class TTTableViewController;
+@class TTSearchDisplayController;
 
 /**
  * A view controller with some useful additions.
  */
 @interface TTViewController : UIViewController {
 @protected
-#ifdef DEBUG
-  BOOL    m_initCalled; //verify new initialization works fine
-#endif
   NSDictionary*     _frozenState;
   UIBarStyle        _navigationBarStyle;
   UIColor*          _navigationBarTintColor;

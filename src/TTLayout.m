@@ -16,184 +16,23 @@
 
 #import "Three20/TTLayout.h"
 
-#import "Three20/TTGlobalUI.h"
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 @implementation TTLayout
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// public
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Public
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 - (CGSize)layoutSubviews:(NSArray*)subviews forView:(UIView*)view {
   return CGSizeZero;
 }
 
-@end
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-@implementation TTFlowLayout
-
-@synthesize padding = _padding, spacing = _spacing;
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// NSObject
-
-- (id)init {
-  if (self = [super init]) {
-    _padding = 0;
-    _spacing = 0;
-  }
-  return self;
-}
-
-- (void)dealloc {
-  [super dealloc];
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// public
-
-- (CGSize)layoutSubviews:(NSArray*)subviews forView:(UIView*)view {
-  CGFloat x = _padding, y = _padding;
-  CGFloat maxX = 0, lastHeight = 0;
-  CGFloat maxWidth = view.width - _padding*2;
-  for (UIView* subview in subviews) {
-    if (x + subview.width > maxWidth) {
-      x = _padding;
-      y += subview.height + _spacing;
-    }
-    subview.left = x;
-    subview.top = y;
-    x += subview.width + _spacing;
-    if (x > maxX) {
-      maxX = x;
-    }
-    lastHeight = subview.height;
-  }
-  
-  return CGSizeMake(maxX+_padding, y+lastHeight+_padding);
-}
 
 @end
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-@implementation TTCenteredFlowLayout
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// public
-
-- (CGSize)layoutSubviews:(NSArray*)subviews forView:(UIView*)view
-{
-	if( !subviews.count )
-		return CGSizeZero;
-	
-	UIView *anyView = (UIView*)[subviews objectAtIndex:0];
-	CGSize subviewSize = anyView.frame.size;
-	CGFloat innerWidth = ( view.width - _padding * 2 );
-	
-	// How many columns can we fit?
-	int columns = 0;
-	CGFloat calculatedWidth = 0.0;
-	do
-	{
-		++columns;
-		calculatedWidth = subviewSize.width * columns + ( _spacing * ( columns - 1 ) );
-	} while( calculatedWidth < innerWidth );
-	--columns;
-	
-	CGFloat usedWidth = subviewSize.width * columns + ( _spacing * ( columns - 1 ) );
-	CGFloat startX = ( view.width - usedWidth ) / 2;
-	CGFloat rowHeight = subviewSize.height;
-	CGFloat x = startX, y = _padding;
-	CGFloat maxX = 0;
-	NSInteger column = 0;
-	
-	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:0.2];
-	
-	for( UIView *subview in subviews )
-	{
-		if( column % columns == 0 )
-		{
-			x = startX;
-			
-			if( column > 0 )
-				y += rowHeight + _spacing;
-		}
-		
-		subview.frame = CGRectMake( x, y, subviewSize.width, subviewSize.height );
-		x += subviewSize.width + _spacing;
-		
-		if( x > maxX )
-			maxX = x;
-
-		++column;
-	}
-	
-	[UIView commitAnimations];
-	
-	return CGSizeMake( maxX + _padding, y + subviewSize.height + _padding );
-}
-
-@end
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-@implementation TTGridLayout
-
-@synthesize columnCount = _columnCount, padding = _padding, spacing = _spacing;
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// NSObject
-
-- (id)init {
-  if (self = [super init]) {
-    _columnCount = 1;
-    _padding = 0;
-    _spacing = 0;
-  }
-  return self;
-}
-
-- (void)dealloc {
-  [super dealloc];
-}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// public
-
-- (CGSize)layoutSubviews:(NSArray*)subviews forView:(UIView*)view {
-  CGFloat innerWidth = (view.width - _padding*2);
-  CGFloat useableWidth = innerWidth - ((_columnCount - 1) * _spacing);
-  CGFloat width = ceil(useableWidth / _columnCount);
-  CGFloat rowHeight = 0;
-  
-  CGFloat x = _padding, y = _padding;
-  CGFloat maxX = 0, lastHeight = 0;
-  NSInteger column = 0;
-  for (UIView* subview in subviews) {
-    if (column % _columnCount == 0) {
-      x = _padding;
-      y += rowHeight + _spacing;
-    }
-    CGSize size = [subview sizeThatFits:CGSizeMake(width, 0)];
-    rowHeight = size.height;
-    subview.frame = CGRectMake(x, y, width, size.height);
-    x += subview.width + _spacing;
-    if (x > maxX) {
-      maxX = x;
-    }
-    lastHeight = subview.height;
-    ++column;
-  }
-  
-  return CGSizeMake(maxX+_padding, y+lastHeight+_padding);
-}
-
-@end
-
-

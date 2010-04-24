@@ -16,12 +16,13 @@
 
 #import "Three20/TTAlertViewController.h"
 
+// UI
 #import "Three20/TTAlertViewControllerDelegate.h"
 #import "Three20/TTAlertView.h"
-
-#import "Three20/TTGlobalCore.h"
-
 #import "Three20/TTNavigator.h"
+
+// Core
+#import "Three20/TTCorePreprocessorMacros.h"
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,19 +35,10 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)bundle {
-  if (self = [super initWithNibName:nibName bundle:bundle]) {
-    _URLs = [[NSMutableArray alloc] init];
-  }
-
-  return self;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithTitle:(NSString*)title message:(NSString*)message delegate:(id)delegate {
-  if (self = [self initWithNibName:nil bundle:nil]) {
+  if (self = [super init]) {
     _delegate = delegate;
+    _URLs = [[NSMutableArray alloc] init];
     if (nil != title) {
       self.alertView.title = title;
     }
@@ -60,13 +52,19 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithTitle:(NSString*)title message:(NSString*)message {
-  return [self initWithTitle:title message:message delegate:nil];
+  if (self = [self initWithTitle:title message:message delegate:nil]) {
+  }
+
+  return self;
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)init {
-  return [self initWithTitle:nil message:nil delegate:nil];
+  if (self = [self initWithTitle:nil message:nil delegate:nil]) {
+  }
+
+  return self;
 }
 
 

@@ -14,8 +14,8 @@
 // limitations under the License.
 //
 
+// UI
 #import "Three20/TTView.h"
-#import "Three20/TTButton.h"
 
 @class TTTabItem;
 @class TTTab;
@@ -37,7 +37,7 @@
 @property (nonatomic, copy)     NSString*   tabStyle;
 
 @property (nonatomic, assign)   TTTabItem*  selectedTabItem;
-@property (nonatomic, assign) 	TTTab*      selectedTabView;
+@property (nonatomic, assign)   TTTab*      selectedTabView;
 @property (nonatomic)           NSInteger   selectedTabIndex;
 
 @property (nonatomic, retain)   NSArray*    tabItems;

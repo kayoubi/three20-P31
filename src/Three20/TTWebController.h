@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 
+// UI
 #import "Three20/TTModelViewController.h"
 
 @protocol TTWebControllerDelegate;
@@ -52,11 +53,6 @@
  * The web controller delegate, currently does nothing.
  */
 @property (nonatomic, assign)   id<TTWebControllerDelegate> delegate;
-
-/**
- * The internal webview.
- */
-@property (nonatomic, readonly) UIWebView* webView;
 
 /**
  * Navigate to the given URL.

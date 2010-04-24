@@ -16,10 +16,15 @@
 
 #import "Three20/TTModelViewController.h"
 
+// UI
 #import "Three20/TTNavigator.h"
+#import "Three20/UIViewControllerAdditions.h"
 
-#import "Three20/TTGlobalCore.h"
-#import "Three20/TTGlobalUI.h"
+// Network
+#import "Three20/TTModel.h"
+
+// Core
+#import "Three20/TTCorePreprocessorMacros.h"
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,19 +37,11 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (id)initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle {
-  if (self = [super initWithNibName:nibName bundle:bundle]) {
+- (id)init {
+  if (self = [super init]) {
     _flags.isViewInvalid = YES;
   }
 
-  return self;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-- (id)init {
-  if (self = [self initWithNibName:nil bundle:nil]) {
-  }
   return self;
 }
 
@@ -65,9 +62,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @private
- */
 - (void)resetViewStates {
   if (_flags.isShowingLoading) {
     [self showLoading:NO];
@@ -89,9 +83,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @private
- */
 - (void)updateViewStates {
   if (_flags.isModelDidRefreshInvalid) {
     [self didRefreshModel];
@@ -175,9 +166,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @private
- */
 - (void)createInterstitialModel {
   self.model = [[[TTModel alloc] init] autorelease];
 }

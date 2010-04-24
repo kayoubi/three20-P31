@@ -14,11 +14,13 @@
 // limitations under the License.
 //
 
+// UI
 #import "Three20/TTPopupViewController.h"
-#import "Three20/TTTextEditor.h"
+#import "Three20/TTTextEditorDelegate.h"
 
 @protocol TTTextBarDelegate;
 @class TTButton;
+@class TTView;
 
 @interface TTTextBarController : TTPopupViewController <TTTextEditorDelegate> {
 @protected

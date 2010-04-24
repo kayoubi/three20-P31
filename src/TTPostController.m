@@ -16,17 +16,24 @@
 
 #import "Three20/TTPostController.h"
 
-#import "Three20/TTPostControllerDelegate.h"
-
-#import "Three20/TTGlobalCore.h"
-#import "Three20/TTGlobalCoreLocale.h"
+// UI
 #import "Three20/TTGlobalUI.h"
 #import "Three20/TTGlobalUINavigator.h"
-
-#import "Three20/TTStyleSheet.h"
+#import "Three20/TTPostControllerDelegate.h"
 #import "Three20/TTNavigator.h"
 #import "Three20/TTActivityLabel.h"
 #import "Three20/TTView.h"
+#import "Three20/UIViewAdditions.h"
+#import "Three20/UIViewControllerAdditions.h"
+
+// Style
+#import "Three20/TTGlobalStyle.h"
+#import "Three20/TTStyleSheet.h"
+
+// Core
+#import "Three20/TTGlobalCoreLocale.h"
+#import "Three20/TTCorePreprocessorMacros.h"
+#import "Three20/NSStringAdditions.h"
 
 static const CGFloat kMarginX = 5;
 static const CGFloat kMarginY = 6;
@@ -45,10 +52,21 @@ static const CGFloat kMarginY = 6;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-- (id)initWithNibName:(NSString *)nibName bundle:(NSBundle*)bundle {
-  if (self = [super initWithNibName:nibName bundle:bundle]) {
+- (id)initWithNavigatorURL:(NSURL*)URL query:(NSDictionary*)query {
+  if (self = [super init]) {
+    if (nil != query) {
+      _delegate = [query objectForKey:@"delegate"];
+      _defaultText = [[query objectForKey:@"text"] copy];
+
+      self.navigationItem.title = [query objectForKey:@"title"];
+
+      self.originView = [query objectForKey:@"__target__"];
+      NSValue* originRect = [query objectForKey:@"originRect"];
+      if (nil != originRect) {
+        _originRect = [originRect CGRectValue];
+      }
+    }
+
     self.navigationItem.leftBarButtonItem =
     [[[UIBarButtonItem alloc] initWithBarButtonSystemItem: UIBarButtonSystemItemCancel
                                                    target: self
@@ -65,29 +83,11 @@ static const CGFloat kMarginY = 6;
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (id)initWithNavigatorURL:(NSURL*)URL query:(NSDictionary*)query {
-  if (self = [self initWithNibName:nil bundle:nil]) {
-    if (nil != query) {
-      _delegate = [query objectForKey:@"delegate"];
-      _defaultText = [[query objectForKey:@"text"] copy];
-
-      self.navigationItem.title = [query objectForKey:@"title"];
-
-      self.originView = [query objectForKey:@"__target__"];
-      NSValue* originRect = [query objectForKey:@"originRect"];
-      if (nil != originRect) {
-        _originRect = [originRect CGRectValue];
-      }
-    }
+- (id)init {
+  if (self = [self initWithNavigatorURL:nil query:nil]) {
   }
 
   return self;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-- (id)init {
-  return [self initWithNavigatorURL:nil query:nil];
 }
 
 

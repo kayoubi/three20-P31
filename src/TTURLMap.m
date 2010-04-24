@@ -16,10 +16,13 @@
 
 #import "Three20/TTURLMap.h"
 
+// UI
 #import "Three20/TTURLNavigatorPattern.h"
 #import "Three20/TTURLGeneratorPattern.h"
 
+// Core
 #import "Three20/TTGlobalCore.h"
+#import "Three20/TTCorePreprocessorMacros.h"
 
 #import <objc/runtime.h>
 
@@ -81,9 +84,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @private
- */
 - (void)addObjectPattern: (TTURLNavigatorPattern*)pattern
                   forURL: (NSString*)URL {
   pattern.URL = URL;
@@ -113,9 +113,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @private
- */
 - (void)addStringPattern: (TTURLGeneratorPattern*)pattern
                   forURL: (NSString*)URL
                 withName: (NSString*)name {
@@ -133,9 +130,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @private
- */
 - (TTURLNavigatorPattern*)matchObjectPattern:(NSURL*)URL {
   if (_invalidPatterns) {
     [_objectPatterns sortUsingSelector:@selector(compareSpecificity:)];
@@ -154,9 +148,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @private
- */
 - (BOOL)isWebURL:(NSURL*)URL {
   return [URL.scheme caseInsensitiveCompare:@"http"] == NSOrderedSame
   || [URL.scheme caseInsensitiveCompare:@"https"] == NSOrderedSame
@@ -167,9 +158,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @private
- */
 - (BOOL)isExternalURL:(NSURL*)URL {
   if ([URL.host isEqualToString:@"maps.google.com"]
       || [URL.host isEqualToString:@"itunes.apple.com"]
@@ -188,9 +176,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL toObject:(id)target {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target];
   [self addObjectPattern:pattern forURL:URL];
@@ -199,9 +184,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL toObject:(id)target selector:(SEL)selector {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target];
   pattern.selector = selector;
@@ -211,9 +193,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL toViewController:(id)target {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target
                                                                   mode:TTNavigationModeCreate];
@@ -223,9 +202,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL toViewController:(id)target selector:(SEL)selector {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target
                                                                   mode:TTNavigationModeCreate];
@@ -236,9 +212,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL toViewController:(id)target transition:(NSInteger)transition {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target
                                                                   mode:TTNavigationModeCreate];
@@ -249,9 +222,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL parent:(NSString*)parentURL
         toViewController:(id)target selector:(SEL)selector transition:(NSInteger)transition {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target
@@ -265,9 +235,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL toSharedViewController:(id)target {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target
                                                                   mode:TTNavigationModeShare];
@@ -277,9 +244,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL toSharedViewController:(id)target selector:(SEL)selector {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target
                                                                   mode:TTNavigationModeShare];
@@ -290,9 +254,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL parent:(NSString*)parentURL
         toSharedViewController:(id)target {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target
@@ -303,9 +264,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL parent:(NSString*)parentURL
         toSharedViewController:(id)target selector:(SEL)selector {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target
@@ -318,9 +276,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL toModalViewController:(id)target {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target
                                                                   mode:TTNavigationModeModal];
@@ -330,9 +285,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL toModalViewController:(id)target selector:(SEL)selector {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target
                                                                   mode:TTNavigationModeModal];
@@ -343,9 +295,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL toModalViewController:(id)target transition:(NSInteger)transition {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target
                                                                   mode:TTNavigationModeModal];
@@ -356,9 +305,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(NSString*)URL parent:(NSString*)parentURL
         toModalViewController:(id)target selector:(SEL)selector transition:(NSInteger)transition {
   TTURLNavigatorPattern* pattern = [[TTURLNavigatorPattern alloc] initWithTarget:target
@@ -372,9 +318,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(Class)cls toURL:(NSString*)URL {
   TTURLGeneratorPattern* pattern = [[TTURLGeneratorPattern alloc] initWithTargetClass:cls];
   [self addStringPattern:pattern forURL:URL withName:nil];
@@ -383,9 +326,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)from:(Class)cls name:(NSString*)name toURL:(NSString*)URL {
   TTURLGeneratorPattern* pattern = [[TTURLGeneratorPattern alloc] initWithTargetClass:cls];
   [self addStringPattern:pattern forURL:URL withName:name];
@@ -394,11 +334,14 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
+///////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Public
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)setObject:(id)object forURL:(NSString*)URL {
-  if (!_objectMappings) {
+  if (nil == _objectMappings) {
     _objectMappings = TTCreateNonRetainingDictionary();
   }
   // XXXjoe Normalize the URL first
@@ -407,9 +350,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)removeURL:(NSString*)URL {
   [_objectMappings removeObjectForKey:URL];
 
@@ -423,55 +363,39 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)removeObject:(id)object {
   // XXXjoe IMPLEMENT ME
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)removeObjectForURL:(NSString*)URL {
   [_objectMappings removeObjectForKey:URL];
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (void)removeAllObjects {
   TT_RELEASE_SAFELY(_objectMappings);
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (id)objectForURL:(NSString*)URL {
   return [self objectForURL:URL query:nil pattern:nil];
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (id)objectForURL:(NSString*)URL query:(NSDictionary*)query {
   return [self objectForURL:URL query:query pattern:nil];
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
-- (id)objectForURL:(NSString*)URL query:(NSDictionary*)query pattern:(TTURLNavigatorPattern**)outPattern {
+- (id)objectForURL: (NSString*)URL
+             query: (NSDictionary*)query
+           pattern: (TTURLNavigatorPattern**)outPattern {
   id object = nil;
   if (_objectMappings) {
     object = [_objectMappings objectForKey:URL];
@@ -500,9 +424,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (id)dispatchURL:(NSString*)URL toTarget:(id)target query:(NSDictionary*)query {
   NSURL* theURL = [NSURL URLWithString:URL];
   for (TTURLNavigatorPattern* pattern in _fragmentPatterns) {
@@ -524,9 +445,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (TTNavigationMode)navigationModeForURL:(NSString*)URL {
   NSURL* theURL = [NSURL URLWithString:URL];
   if (![self isAppURL:theURL]) {
@@ -540,9 +458,6 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (NSInteger)transitionForURL:(NSString*)URL {
   TTURLNavigatorPattern* pattern = [self matchObjectPattern:[NSURL URLWithString:URL]];
   return pattern.transition;
@@ -550,18 +465,12 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (BOOL)isSchemeSupported:(NSString*)scheme {
   return nil != scheme && !![_schemes objectForKey:scheme];
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (BOOL)isAppURL:(NSURL*)URL {
   return [self isExternalURL:URL]
           || ([[UIApplication sharedApplication] canOpenURL:URL]
@@ -571,18 +480,12 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (NSString*)URLForObject:(id)object {
   return [self URLForObject:object withName:nil];
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @public
- */
 - (NSString*)URLForObject:(id)object withName:(NSString*)name {
   Class cls = [object class] == object ? object : [object class];
   while (cls) {

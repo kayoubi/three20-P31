@@ -16,12 +16,13 @@
 
 #import "Three20/TTActionSheetController.h"
 
+// UI
 #import "Three20/TTActionSheetControllerDelegate.h"
 #import "Three20/TTActionSheet.h"
-
-#import "Three20/TTGlobalCore.h"
-
 #import "Three20/TTNavigator.h"
+
+// Core
+#import "Three20/TTCorePreprocessorMacros.h"
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,19 +35,10 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-- (id)initWithNibName:(NSString*)nibName bundle:(NSBundle*)bundle {
-  if (self = [super initWithNibName:nibName bundle:bundle]) {
-    _URLs = [[NSMutableArray alloc] init];
-  }
-
-  return self;
-}
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithTitle:(NSString*)title delegate:(id)delegate {
-  if (self = [self initWithNibName:nil bundle:nil]) {
+  if (self = [super init]) {
     _delegate = delegate;
+    _URLs = [[NSMutableArray alloc] init];
 
     if (title) {
       self.actionSheet.title = title;
@@ -58,13 +50,19 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithTitle:(NSString*)title {
-  return [self initWithTitle:title delegate:nil];
+  if (self = [self initWithTitle:title delegate:nil]) {
+  }
+
+  return self;
 }
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)init {
-  return [self initWithTitle:nil delegate:nil];
+  if (self = [self initWithTitle:nil delegate:nil]) {
+  }
+
+  return self;
 }
 
 

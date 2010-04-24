@@ -16,16 +16,24 @@
 
 #import "Three20/TTTextBarController.h"
 
-#import "Three20/TTTextBarDelegate.h"
-
-#import "Three20/TTGlobalCore.h"
-#import "Three20/TTGlobalCoreLocale.h"
+// UI
 #import "Three20/TTGlobalUI.h"
 #import "Three20/TTGlobalUINavigator.h"
-
-#import "Three20/TTButton.h"
 #import "Three20/TTNavigator.h"
+#import "Three20/TTTextBarDelegate.h"
+#import "Three20/TTButton.h"
+#import "Three20/TTTextEditor.h"
+#import "Three20/UIViewAdditions.h"
+#import "Three20/UIViewControllerAdditions.h"
+
+// Style
+#import "Three20/TTGlobalStyle.h"
 #import "Three20/TTDefaultStyleSheet.h"
+
+// Core
+#import "Three20/TTGlobalCoreLocale.h"
+#import "Three20/TTCorePreprocessorMacros.h"
+#import "Three20/NSStringAdditions.h"
 
 static CGFloat kMargin  = 1;
 static CGFloat kPadding = 5;
@@ -45,7 +53,7 @@ static CGFloat kPadding = 5;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithNavigatorURL:(NSURL*)URL query:(NSDictionary*)query {
-  if (self = [super initWithNibName:nil bundle:nil]) {
+  if (self = [super init]) {
     if (nil != query) {
       _delegate = [query objectForKey:@"delegate"];
       _defaultText = [[query objectForKey:@"text"] copy];
@@ -58,7 +66,10 @@ static CGFloat kPadding = 5;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)init {
-  return [self initWithNavigatorURL:nil query:nil];
+  if (self = [self initWithNavigatorURL:nil query:nil]) {
+  }
+
+  return self;
 }
 
 
