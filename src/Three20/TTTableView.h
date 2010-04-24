@@ -42,7 +42,7 @@
 @property (nonatomic, retain) TTStyledTextLabel*  highlightedLabel;
 @property (nonatomic)         CGFloat             contentOrigin;
 @property (nonatomic)         BOOL                showShadows;
-@property (nonatomic)		  BOOL				  styledLabelLinkSelectionOnly;
+@property (nonatomic) 		  BOOL				  styledLabelLinkSelectionOnly;
 
 @end
 
