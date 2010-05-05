@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,16 +14,17 @@
 // limitations under the License.
 //
 
-#import "Three20/TTURLArguments.h"
+// UI (private)
+#import "Three20/TTURLArgumentType.h"
 
 @interface TTURLSelector : NSObject {
-  NSString* _name;
-  SEL _selector;
-  TTURLSelector* _next;
+  NSString*       _name;
+  SEL             _selector;
+  TTURLSelector*  _next;
 }
 
-@property(nonatomic,readonly) NSString* name;
-@property(nonatomic,retain) TTURLSelector* next;
+@property (nonatomic, readonly) NSString*       name;
+@property (nonatomic, retain)   TTURLSelector*  next;
 
 - (id)initWithName:(NSString*)name;
 

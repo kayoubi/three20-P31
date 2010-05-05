@@ -6,6 +6,7 @@
 #import "P31LoadingView.h"
 #import "TTURLCache.h"
 #import <QuartzCore/QuartzCore.h>
+#import "P31StyleSheet.h"
 
 
 #define kActivityIndicatorTag 2
@@ -69,7 +70,7 @@ static UIImage *doneImage;
 	if( self = [super initWithFrame:frame] )
 	{
 		// Setup our layer
-		self.layer.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.75].CGColor;
+		self.layer.backgroundColor = TTSTYLEVAR(loadingViewBackgroundColor).CGColor;
 		self.layer.cornerRadius = 12.0;
 		
 		// Setup our label
@@ -77,7 +78,7 @@ static UIImage *doneImage;
 		_label.tag = kLabelTag;
 		_label.hidden = YES;
 		_label.text = message;
-		_label.textColor = [UIColor whiteColor];
+		_label.textColor = TTSTYLEVAR(loadingViewTextColor);
 		_label.backgroundColor = [UIColor clearColor];
 		_label.textAlignment = UITextAlignmentCenter;
 		_label.lineBreakMode = UILineBreakModeWordWrap;
@@ -110,7 +111,6 @@ static UIImage *doneImage;
 
 - (void)dealloc
 {
-	NSLog( @"dealloc loadingView" );
 	[_backgroundWindow release];
 	
 	[super dealloc];
@@ -131,8 +131,11 @@ static UIImage *doneImage;
 	else
 	{
 		[self removeFromSuperview];
+		
+		// restore main key window
+		[[TTNavigator navigator].window makeKeyAndVisible];
+		[[NSNotificationCenter defaultCenter] postNotificationName:@"P31LoadingViewFinished" object:nil];
 	}
-
 }
 
 
@@ -176,6 +179,18 @@ static UIImage *doneImage;
 }
 
 
+- (void)hideAfterDelay:(NSTimeInterval)delay
+{
+	[self performSelector:@selector(hide) withObject:nil afterDelay:delay];
+}
+
+
+- (void)hideWithDoneImageAfterDelay:(NSTimeInterval)delay
+{
+	[self performSelector:@selector(hideWithDoneImage) withObject:nil afterDelay:delay];
+}
+
+
 - (void)hideWithDoneImage
 {
 	[self hideWithDoneImageAndMessage:@"Done"];
@@ -183,6 +198,12 @@ static UIImage *doneImage;
 
 
 - (void)hideWithDoneImageAndMessage:(NSString*)message
+{
+	[self hideWithDoneImageAndMessage:message afterDelay:0.3];
+}
+
+
+- (void)hideWithDoneImageAndMessage:(NSString*)message afterDelay:(NSTimeInterval)delay
 {
 	// Grab the frame of the activityIndicator and shift it up a bit
 	CGRect frame = [self viewWithTag:kActivityIndicatorTag].frame;
@@ -198,7 +219,7 @@ static UIImage *doneImage;
 	iv.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
 	[self addSubview:iv];
 	
-	[self performSelector:@selector(hide) withObject:nil afterDelay:0.3];
+	[self performSelector:@selector(hide) withObject:nil afterDelay:delay];
 }
 
 

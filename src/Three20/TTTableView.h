@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,10 +16,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @class TTStyledTextLabel;
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * TTTableView enhances UITableView to provide support for various Three20 services.
@@ -27,22 +26,29 @@
  * If you are using TTStyledTextLabels in your table cells, you need to use TTTableView if
  * you want links in your labels to be touchable.
  */
-@interface TTTableView : UITableView
-{
-	TTStyledTextLabel* _highlightedLabel;
-	CGPoint _highlightStartPoint;
-	CGFloat _contentOrigin;
-	BOOL _styledLabelLinkSelectionOnly;
-}
-@property(nonatomic,retain) TTStyledTextLabel* highlightedLabel;
-@property(nonatomic) CGFloat contentOrigin;
-@property (nonatomic) BOOL styledLabelLinkSelectionOnly;
+@interface TTTableView : UITableView {
+  TTStyledTextLabel*  _highlightedLabel;
+  CGPoint             _highlightStartPoint;
+  CGFloat             _contentOrigin;
 
+  BOOL _showShadows;
+  BOOL _styledLabelLinkSelectionOnly;
+
+  CAGradientLayer* _originShadow;
+  CAGradientLayer* _topShadow;
+  CAGradientLayer* _bottomShadow;
+}
+
+@property (nonatomic, retain) TTStyledTextLabel*  highlightedLabel;
+@property (nonatomic)         CGFloat             contentOrigin;
+@property (nonatomic)         BOOL                showShadows;
+@property (nonatomic) 		  BOOL				  styledLabelLinkSelectionOnly;
 
 @end
 
-
 @protocol TTTableViewDelegate <UITableViewDelegate>
+
 - (void)tableView:(UITableView*)tableView touchesBegan:(NSSet*)touches withEvent:(UIEvent*)event;
 - (void)tableView:(UITableView*)tableView touchesEnded:(NSSet*)touches withEvent:(UIEvent*)event;
+
 @end

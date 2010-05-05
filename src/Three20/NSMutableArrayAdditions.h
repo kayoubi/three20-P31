@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,10 +16,6 @@
 
 #import <Foundation/Foundation.h>
 
-/**
- * Doxygen does not handle categories very well, so please refer to the .m file in general
- * for the documentation that is reflected on api.three20.info.
- */
 @interface NSMutableArray (TTCategory)
 
 /**

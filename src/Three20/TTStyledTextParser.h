@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,22 +17,26 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@class TTStyledNode, TTStyledElement;
+@class TTStyledNode;
+@class TTStyledElement;
 
 @interface TTStyledTextParser : NSObject {
-  TTStyledNode* _rootNode;
-  TTStyledElement* _topElement;
-  TTStyledNode* _lastNode;
-  NSError* _parserError;
-  NSMutableString* _chars;
-  NSMutableArray* _stack;
+  TTStyledNode*     _rootNode;
+  TTStyledElement*  _topElement;
+  TTStyledNode*     _lastNode;
+
+  NSError*          _parserError;
+
+  NSMutableString*  _chars;
+  NSMutableArray*   _stack;
+
   BOOL _parseLineBreaks;
   BOOL _parseURLs;
 }
 
-@property(nonatomic, retain) TTStyledNode* rootNode;
-@property(nonatomic) BOOL parseLineBreaks;
-@property(nonatomic) BOOL parseURLs;
+@property (nonatomic, retain) TTStyledNode* rootNode;
+@property (nonatomic)         BOOL          parseLineBreaks;
+@property (nonatomic)         BOOL          parseURLs;
 
 - (void)parseXHTML:(NSString*)html;
 - (void)parseText:(NSString*)string;

@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,6 +16,10 @@
 
 #import "Three20/TTURLSelector.h"
 
+// UI (private)
+#import "Three20/TTURLArguments.h"
+
+// Core
 #import "Three20/TTCorePreprocessorMacros.h"
 
 
@@ -34,6 +38,7 @@
     _name     = [name copy];
     _selector = NSSelectorFromString(_name);
   }
+
   return self;
 }
 
@@ -58,7 +63,7 @@
     [invocation setTarget:object];
     [invocation setSelector:_selector];
     [invocation invoke];
-    
+
     if (!returnType) {
       returnType = TTURLArgumentTypeForProperty([object class], _name);
     }

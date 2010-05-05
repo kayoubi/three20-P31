@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -24,21 +24,23 @@
 NSLocale* TTCurrentLocale();
 
 /**
- * Returns a localized string from the Three20 bundle.
+ * @return A localized string from the Three20 bundle.
  */
 NSString* TTLocalizedString(NSString* key, NSString* comment);
 
 /**
- * Returns a localized description for NSURLErrorDomain errors.
+ * @return A localized description for NSURLErrorDomain errors.
  *
  * Error codes handled:
  * - NSURLErrorTimedOut
  * - NSURLErrorNotConnectedToInternet
- * - All other NSURLErrorDomain errors
+ * - All other NSURLErrorDomain errors fall through to "Connection Error".
  */
 NSString* TTDescriptionForError(NSError* error);
 
 /**
- * Returns the given number formatted as XX,XXX,XXX.XX
+ * @return The given number formatted as XX,XXX,XXX.XX
+ *
+ * TODO(jverkoey 04/19/2010): This should likely be locale-aware.
  */
 NSString* TTFormatInteger(NSInteger num);

@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,31 +20,5 @@
 @interface TTLayout : NSObject
 
 - (CGSize)layoutSubviews:(NSArray*)subviews forView:(UIView*)view;
-
-@end
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-@interface TTFlowLayout : TTLayout {
-  CGFloat _padding;
-  CGFloat _spacing;
-}
-
-@property(nonatomic) CGFloat padding;
-@property(nonatomic) CGFloat spacing;
-
-@end
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-@interface TTGridLayout : TTLayout {
-  NSInteger _columnCount;
-  CGFloat _padding;
-  CGFloat _spacing;
-}
-
-@property(nonatomic) NSInteger columnCount;
-@property(nonatomic) CGFloat padding;
-@property(nonatomic) CGFloat spacing;
 
 @end

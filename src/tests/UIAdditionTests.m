@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@
 #import <UIKit/UIKit.h>
 
 #import "Three20/TTGlobalUI.h"
+#import "Three20/TTGlobalStyle.h"
+#import "Three20/UIColorAdditions.h"
 
 @interface UIAdditionTests : SenTestCase {
 }

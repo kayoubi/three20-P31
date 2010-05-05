@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -16,14 +16,23 @@
 
 #import "Three20/UIImageAdditions.h"
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
 /**
  * Additions.
  */
 @implementation UIImage (TTCategory)
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// private
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Private
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)addRoundedRectToPath:(CGContextRef)context rect:(CGRect)rect radius:(float)radius {
   CGContextBeginPath(context);
   CGContextSaveGState(context);
@@ -36,7 +45,7 @@
     CGContextScaleCTM(context, radius, radius);
     float fw = CGRectGetWidth(rect) / radius;
     float fh = CGRectGetHeight(rect) / radius;
-    
+
     CGContextMoveToPoint(context, fw, fh/2);
     CGContextAddArcToPoint(context, fw, fh, fw/2, fh, 1);
     CGContextAddArcToPoint(context, 0, fh, 0, fh/2, 1);
@@ -48,9 +57,18 @@
   CGContextRestoreGState(context);
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// public
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark -
+#pragma mark Public
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * Creates a new image by resizing the receiver to the desired size, and rotating it if receiver's
+ * imageOrientation shows it to be necessary (and the rotate argument is YES).
+ */
 - (UIImage*)transformWidth:(CGFloat)width height:(CGFloat)height rotate:(BOOL)rotate {
   CGFloat destW = width;
   CGFloat destH = height;
@@ -63,10 +81,11 @@
       sourceH = width;
     }
   }
-  
+
   CGImageRef imageRef = self.CGImage;
+  int bytesPerRow = destW * (CGImageGetBitsPerPixel(imageRef) >> 3);
   CGContextRef bitmap = CGBitmapContextCreate(NULL, destW, destH,
-    CGImageGetBitsPerComponent(imageRef), CGImageGetBytesPerRow(imageRef), CGImageGetColorSpace(imageRef),
+    CGImageGetBitsPerComponent(imageRef), bytesPerRow, CGImageGetColorSpace(imageRef),
     CGImageGetBitmapInfo(imageRef));
 
   if (rotate) {
@@ -92,6 +111,8 @@
   return result;
 }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 - (CGRect)convertRect:(CGRect)rect withContentMode:(UIViewContentMode)contentMode {
   if (self.size.width != rect.size.width || self.size.height != rect.size.height) {
     if (contentMode == UIViewContentModeLeft) {
@@ -125,7 +146,7 @@
     } else if (contentMode == UIViewContentModeTopLeft) {
       return CGRectMake(rect.origin.x,
                         rect.origin.y,
-                        
+
                         self.size.width, self.size.height);
     } else if (contentMode == UIViewContentModeTopRight) {
       return CGRectMake(rect.origin.x + (rect.size.width - self.size.width),
@@ -160,6 +181,8 @@
   return rect;
 }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)drawInRect:(CGRect)rect contentMode:(UIViewContentMode)contentMode {
   BOOL clip = NO;
   CGRect originalRect = rect;
@@ -168,7 +191,7 @@
            && contentMode != UIViewContentModeScaleAspectFit;
     rect = [self convertRect:rect withContentMode:contentMode];
   }
-  
+
   CGContextRef context = UIGraphicsGetCurrentContext();
   if (clip) {
     CGContextSaveGState(context);
@@ -183,10 +206,14 @@
   }
 }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)drawInRect:(CGRect)rect radius:(CGFloat)radius {
   [self drawInRect:rect radius:radius contentMode:UIViewContentModeScaleToFill];
 }
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 - (void)drawInRect:(CGRect)rect radius:(CGFloat)radius contentMode:(UIViewContentMode)contentMode {
   CGContextRef context = UIGraphicsGetCurrentContext();
   CGContextSaveGState(context);
@@ -194,10 +221,11 @@
     [self addRoundedRectToPath:context rect:rect radius:radius];
     CGContextClip(context);
   }
-  
+
   [self drawInRect:rect contentMode:contentMode];
-  
+
   CGContextRestoreGState(context);
 }
+
 
 @end

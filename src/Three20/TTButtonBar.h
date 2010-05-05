@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 
+// UI
 #import "Three20/TTView.h"
 
 /**
@@ -21,11 +22,11 @@
  */
 @interface TTButtonBar : TTView {
   NSMutableArray* _buttons;
-  NSString* _buttonStyle;
+  NSString*       _buttonStyle;
 }
 
-@property(nonatomic, retain) NSArray* buttons;
-@property(nonatomic,copy) NSString* buttonStyle;
+@property (nonatomic, retain) NSArray*  buttons;
+@property (nonatomic, copy)   NSString* buttonStyle;
 
 - (void)addButton:(NSString*)title target:(id)target action:(SEL)selector;
 - (void)removeButtons;

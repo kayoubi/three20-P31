@@ -264,16 +264,17 @@
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-#pragma mark P31RefreshTableHeaderView
+#pragma mark P31LoadingView
 
-- (UIColor*)refreshTableHeaderTextColor
+- (UIColor*)loadingViewBackgroundColor
 {
-	return RGBCOLOR( 87.0, 108.0, 137.0 );
+	return RGBACOLOR( 0, 0, 0, 0.75 );
 }
 
-- (UIColor*)refreshTableHeaderTextShadowColor
+
+- (UIColor*)loadingViewTextColor
 {
-	return [UIColor colorWithWhite:0.9f alpha:1.0f];
+	return [UIColor whiteColor];
 }
 
 

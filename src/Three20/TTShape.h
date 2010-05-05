@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -35,77 +35,5 @@
 - (void)addInverseToPath:(CGRect)rect;
 
 - (UIEdgeInsets)insetsForSize:(CGSize)size;
-
-@end
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-@interface TTRectangleShape : TTShape
-
-+ (TTRectangleShape*)shape;
-
-@end
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-@interface TTRoundedRectangleShape : TTShape {
-  CGFloat _topLeftRadius;
-  CGFloat _topRightRadius;
-  CGFloat _bottomRightRadius;
-  CGFloat _bottomLeftRadius;
-}
-
-@property(nonatomic) CGFloat topLeftRadius;
-@property(nonatomic) CGFloat topRightRadius;
-@property(nonatomic) CGFloat bottomRightRadius;
-@property(nonatomic) CGFloat bottomLeftRadius;
-
-+ (TTRoundedRectangleShape*)shapeWithRadius:(CGFloat)radius;
-
-+ (TTRoundedRectangleShape*)shapeWithTopLeft:(CGFloat)topLeft topRight:(CGFloat)topRight
-      bottomRight:(CGFloat)bottomRight bottomLeft:(CGFloat)bottomLeft;
-
-@end
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-@interface TTRoundedRightArrowShape : TTShape {
-  CGFloat _radius;
-}
-
-@property(nonatomic) CGFloat radius;
-
-+ (TTRoundedRightArrowShape*)shapeWithRadius:(CGFloat)radius;
-
-@end
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-@interface TTRoundedLeftArrowShape : TTShape {
-  CGFloat _radius;
-}
-
-@property(nonatomic) CGFloat radius;
-
-+ (TTRoundedLeftArrowShape*)shapeWithRadius:(CGFloat)radius;
-
-@end
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-@interface TTSpeechBubbleShape : TTShape {
-  CGFloat _radius;
-  CGFloat _pointLocation;
-  CGFloat _pointAngle;
-  CGSize _pointSize;
-}
-
-@property(nonatomic) CGFloat radius;
-@property(nonatomic) CGFloat pointLocation;
-@property(nonatomic) CGFloat pointAngle;
-@property(nonatomic) CGSize pointSize;
-
-+ (TTSpeechBubbleShape*)shapeWithRadius:(CGFloat)radius pointLocation:(CGFloat)pointLocation
-                        pointAngle:(CGFloat)pointAngle pointSize:(CGSize)pointSize;
 
 @end

@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,8 +17,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "Three20/TTGlobalCore.h"
-
 @interface UIFont (TTCategory)
 
 /**
@@ -31,24 +29,5 @@
  * Hurrah for broken static code analysis.
  */
 - (CGFloat)ttLineHeight;
-
-
-#ifdef DEBUG
-
-/**
- * Gets the height of a line of text with this font.
- *
- * This has been deprecated due to App Store rejections. These are completely unfounded,
- * as there is no ttLineHeight method in UIFont. Alas, there's not much we can do than hope
- * they fix their static analyzer.
- *
- * For now, use ttLineHeight. This method will be compiled out of your release builds,
- * so three20 should be App Store safe when you submit.
- *
- * @deprecated
- */
-- (CGFloat)lineHeight __TTDEPRECATED_METHOD;
-
-#endif
 
 @end

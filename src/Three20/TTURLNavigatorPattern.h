@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,9 +14,9 @@
 // limitations under the License.
 //
 
+// UI
 #import "Three20/TTURLPattern.h"
-
-#import "Three20/TTURLMap.h"
+#import "Three20/TTURLMap.h" // For TTNavigationMode
 
 @interface TTURLNavigatorPattern : TTURLPattern {
   Class             _targetClass;
@@ -27,14 +27,14 @@
   NSInteger         _argumentCount;
 }
 
-@property(nonatomic)          Class             targetClass;
-@property(nonatomic,assign)   id                targetObject;
-@property(nonatomic,readonly) TTNavigationMode  navigationMode;
-@property(nonatomic,copy)     NSString*         parentURL;
-@property(nonatomic)          NSInteger         transition;
-@property(nonatomic)          NSInteger         argumentCount;
-@property(nonatomic,readonly) BOOL              isUniversal;
-@property(nonatomic,readonly) BOOL              isFragment;
+@property (nonatomic)           Class             targetClass;
+@property (nonatomic, assign)   id                targetObject;
+@property (nonatomic, readonly) TTNavigationMode  navigationMode;
+@property (nonatomic, copy)     NSString*         parentURL;
+@property (nonatomic)           NSInteger         transition;
+@property (nonatomic)           NSInteger         argumentCount;
+@property (nonatomic, readonly) BOOL              isUniversal;
+@property (nonatomic, readonly) BOOL              isFragment;
 
 - (id)initWithTarget:(id)target;
 - (id)initWithTarget:(id)target mode:(TTNavigationMode)navigationMode;

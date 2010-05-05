@@ -1,5 +1,5 @@
 //
-// Copyright 2009 Facebook
+// Copyright 2009-2010 Facebook
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,8 +14,10 @@
 // limitations under the License.
 //
 
-#import "Three20/TTStyle.h"
+// Style
+#import "Three20/TTStyleDelegate.h"
 
+@class TTStyle;
 @class TTLayout;
 
 /**
@@ -27,8 +29,8 @@
   TTLayout* _layout;
 }
 
-@property(nonatomic,retain) TTStyle*  style;
-@property(nonatomic,retain) TTLayout* layout;
+@property (nonatomic, retain) TTStyle*  style;
+@property (nonatomic, retain) TTLayout* layout;
 
 - (void)drawContent:(CGRect)rect;
 
