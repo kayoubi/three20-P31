@@ -190,8 +190,13 @@ static const NSTimeInterval kPauseInterval = 0.4;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 - (BOOL)searchDisplayController:(UISearchDisplayController*)controller
         shouldReloadTableForSearchScope:(NSInteger)searchOption {
-  [_searchResultsViewController invalidateModel];
-  [_searchResultsViewController.dataSource search:self.searchBar.text];
+//  [_searchResultsViewController invalidateModel];
+//  [_searchResultsViewController.dataSource search:self.searchBar.text];
+  if ([_searchResultsViewController.dataSource respondsToSelector:@selector(search:scope:)]) {
+    [_searchResultsViewController.dataSource performSelector:@selector(search:scope:) withObject:self.searchBar.text 
+                                                  withObject:[[self.searchBar scopeButtonTitles] objectAtIndex:[self.searchBar selectedScopeButtonIndex]]];
+    
+  }
   return NO;
 }
 
