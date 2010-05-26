@@ -223,6 +223,13 @@ UIViewController *TTOpenURLWithQuery( NSString *URL, NSDictionary *query, BOOL a
       return [self openURLAction:[TTURLAction actionWithURLPath: parentURLPath]];
     } else {
       UIViewController* parent = self.topViewController;
+	  if ([parent isKindOfClass:[UINavigationController class]]) {
+		if (parent.parentViewController != nil)
+			parent = parent.parentViewController;
+		if ([parent isKindOfClass:[UITabBarController class]]) {
+			parent = [(UITabBarController*)parent moreNavigationController];
+		}
+	  }	
       if (parent != controller) {
         return parent;
       } else {
